@@ -3,8 +3,8 @@ import commomStyle from "../../resources/styles/commomStyle"
 import Title from "../../components/Title"
 import Template from "../../components/Template"
 import Subtitle from "../../components/Subtitle"
-import Card from "../../components/Card"
 import Rating from "../../components/Rating"
+import Card from "../../components/Card"
 
 export default () => {
     return (

@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
 	},
 	ScrollContent: {
 		flexGrow: 1,
-		justifyContent: 'center',
         padding: 10,
 	},
 })

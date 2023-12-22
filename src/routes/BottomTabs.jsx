@@ -6,6 +6,7 @@ import Login from '../views/login/Login'
 import NewUser from '../views/profile/NewUser'
 import Profile from '../views/profile/Profile'
 import NewProfile from '../views/profile/NewProfile'
+import Contracts from '../views/contracts/Contracts'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -18,7 +19,7 @@ const TabNavigator = props => {
             </Tab.Screen>
 
             <Tab.Screen name="Contracts" options={{ title: 'Contratos' }}>
-                {props => <Profile {...props} />}
+                {props => <Contracts {...props} />}
             </Tab.Screen>
 
             <Tab.Screen name="Ofert" options={{ title: 'Ofertas' }}>
