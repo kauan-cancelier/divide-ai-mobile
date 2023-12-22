@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text } from "react-native"
+import { SafeAreaView, StyleSheet } from "react-native"
 
 export default (props) => {
     return (
