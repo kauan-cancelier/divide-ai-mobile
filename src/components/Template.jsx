@@ -20,6 +20,5 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 		justifyContent: 'center',
         padding: 10,
-        marginBottom: 50
 	},
 })

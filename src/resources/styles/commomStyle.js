@@ -10,5 +10,10 @@ export default StyleSheet.create({
     },
     mb5: {
         marginBottom: 5
-    }
+    },
+    RoudendImage: {
+        borderRadius: 130,
+        marginBottom: 50
+
+    },
 })
