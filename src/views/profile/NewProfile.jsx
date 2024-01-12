@@ -1,46 +1,109 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native"
+import { Image, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 import Input from "../../components/Input"
 import commomStyle from "../../resources/styles/commomStyle"
 import Row from "../../components/Row"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import Template from "../../components/Template"
+import Title from "../../components/Title"
+import { Component } from "react"
+import api from "../../services/Api"
 
-export default (props) => {
-    return (
-        <Template>
-            <Text style={style.Title}>
-                Cadastro
-            </Text>
+export default class NewProfile extends Component {
 
-            <View style={commomStyle.Center}>
-                <Image source={require('../../resources/imgs/profile.png')} style={style.RoudendImage}/>
-            </View>
+    constructor(props) {
+        super(props)
+        this.state = {
+            gender: '',
+            aboutYou: '',
+            errorMessage: ''
 
-            <Text style={style.Subtitle}>
-                Adicione uma foto de perfil
-            </Text>
+        }
+    }
 
-            <Input placeholder="Onde você mora?" />
-            <Input placeholder="Onde você quer morar?" />
-            <Input placeholder="Status de relacionamento" />
-            <Input placeholder="Conte nos um pouco sobre você" />
-            <Input placeholder="Instagram" />
+    async save() {
+        try {
+            const { gender, aboutYou } = this.state
+            const { name, email, birth, maritalStatus, password } = this.props.route.params
 
-            <Row>
-                <TouchableOpacity style={style.ButtonPers} onPress={() => props.navigation.goBack()}>
-                    <Text style={style.ButtonText}>
-                        Cancelar
-                    </Text>
-                </TouchableOpacity>
+            if (!gender) {
+                return this.setState({ errorMessage: 'O gênero é obrigatório. ' })
+            }
 
-                <TouchableOpacity style={style.ButtonPers} onPress={() => props.navigation.navigate('Home')}>
-                    <Text style={style.ButtonText}>
-                        Salvar
-                    </Text>
-                </TouchableOpacity>
-            </Row>
-        </Template>
-    )
+            const responseUser = await api.post('users', {
+                name: name,
+                email: email,
+                password: password,
+                birth: birth,
+                maritalStatus: maritalStatus
+            })
+            const location = responseUser.headers.location
+
+            const userGetResponse = await api.get(location)
+
+            const user = userGetResponse.data
+
+            const responseProfile = await api.post('profiles', {
+                gender,
+                aboutYou,
+                user
+            })
+
+            this.props.navigation.navigate('Profile', {message: "Perfil criado"})
+
+        } catch (error) {
+            console.error('Erro ao salvar perfil:', error);
+            // Trate o erro de acordo com suas necessidades
+        }
+    }
+
+
+    render() {
+        const { errorMessage } = this.state
+        return (
+            <Template>
+                <Title>
+                    Cadastro
+                </Title>
+
+                <View style={commomStyle.Center}>
+                    <Image source={require('../../resources/imgs/profile.png')} style={style.RoudendImage} />
+                </View>
+
+                <Text style={style.Subtitle}>
+                    * Adicione uma foto de perfil
+                </Text>
+
+                {errorMessage ? <Text style={style.ErrorMessage}>{errorMessage}</Text> : ''}
+
+                <Input
+                    placeholder="Qual seu gênero?"
+                    onChangeText={(gender) => this.setState({ gender })}
+                />
+
+                <TextInput
+                    style={style.textInput}
+                    multiline={true}
+                    placeholder="Fale um pouco sobrê você"
+                    onChangeText={(aboutYou) => this.setState({ aboutYou })}
+                />
+
+                <Row>
+                    <TouchableOpacity style={style.ButtonPers} onPress={() => this.props.navigation.goBack()}>
+                        <Text style={style.ButtonText}>
+                            Voltar
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={style.ButtonPers} onPress={() => this.save()}>
+                        <Text style={style.ButtonText}>
+                            Salvar
+                        </Text>
+                    </TouchableOpacity>
+                </Row>
+
+            </Template>
+        )
+    }
 }
 
 const style = StyleSheet.create({
@@ -72,5 +135,19 @@ const style = StyleSheet.create({
     ButtonText: {
         color: 'white',
         fontSize: 16,
+    },
+    textInput: {
+        borderWidth: 1,
+        backgroundColor: '#1c1c1c',
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    ErrorMessage: {
+        fontSize: 15,
+        backgroundColor: 'rgba(255, 0, 0, 0.64)',
+        borderRadius: 5,
+        padding: 10,
+        color: 'white',
+        marginBottom: 10
     }
 })
