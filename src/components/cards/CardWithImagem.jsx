@@ -1,6 +1,4 @@
-import { SafeAreaView, StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
-import Title from "./Title";
-import Template from "./Template";
+import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
 
 export default ({ imageSource, title, description, onPress }) => {
     return (
