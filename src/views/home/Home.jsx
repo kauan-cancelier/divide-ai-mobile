@@ -5,7 +5,6 @@ export default() => {
     return(
         <SafeAreaView>
             <Text styles={styles.Container}>
-                oi
             </Text>
         </SafeAreaView>
     )

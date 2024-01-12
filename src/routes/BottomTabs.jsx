@@ -7,6 +7,12 @@ import NewUser from '../views/profile/NewUser'
 import Profile from '../views/profile/Profile'
 import NewProfile from '../views/profile/NewProfile'
 import Contracts from '../views/contracts/Contracts'
+import ShowContract from '../views/contracts/ShowContract'
+import FindYourPartner from '../views/search/FindYourPartner'
+import Messages from '../views/messages/Messages'
+import ShowMessage from '../views/messages/ShowMessage'
+import Carousel from '../views/search/Carousel'
+import AvailabilityToLive from '../views/profile/AvailabilityToLive'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -15,7 +21,7 @@ const TabNavigator = props => {
     return (
         <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: {backgroundColor: 'black'} }}>
             <Tab.Screen name="Search" options={{ title: 'Buscar' }}>
-                {props => <Profile {...props} />}
+                {props => <FindYourPartner {...props} />}
             </Tab.Screen>
 
             <Tab.Screen name="Contracts" options={{ title: 'Contratos' }}>
@@ -27,7 +33,7 @@ const TabNavigator = props => {
             </Tab.Screen>
 
             <Tab.Screen name="Messages " options={{ title: 'Mensagens' }}>
-                {props => <Profile {...props} />}
+                {props => <Messages {...props} />}
             </Tab.Screen>
 
             <Tab.Screen name="Profile" options={{ title: 'Perfil' }}>
@@ -43,6 +49,10 @@ const StackNavigator = () => {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="NewUser" component={NewUser}/>
             <Stack.Screen name="NewProfile" component={NewProfile}/>
+            <Stack.Screen name="NewAvailabilityToLive" component={AvailabilityToLive}/>
+            <Stack.Screen name="ShowContract" component={ShowContract}/>
+            <Stack.Screen name="ShowMessage" component={ShowMessage}/>
+            <Stack.Screen name="SwipeCarousel" component={Carousel}/>
             <Stack.Screen name="Home" component={TabNavigator} />
         </Stack.Navigator>
     )
