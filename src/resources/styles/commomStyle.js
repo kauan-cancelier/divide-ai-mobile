@@ -16,4 +16,7 @@ export default StyleSheet.create({
         marginBottom: 50
 
     },
+    CenterText: {
+        textAlign: 'center'
+    }
 })
